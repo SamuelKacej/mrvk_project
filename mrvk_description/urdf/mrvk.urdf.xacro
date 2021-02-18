@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<robot xmlns:xacro="http://www.ros.org/wiki/xacro"
+<robot xmlns:xacro="http://ros.org/wiki/xacro"
        xmlns:xi="http://www.w3.org/2001/XInclude"
        xmlns:gazebo="http://playerstage.sourceforge.net/gazebo/xmlschema/#gz"
        xmlns:model="http://playerstage.sourceforge.net/gazebo/xmlschema/#model"
@@ -58,21 +58,6 @@
             </collision>
         </link>
 
-        <joint name="stabilizer_to_adis16350" type="fixed">
-            <origin  xyz="0.0 0.0 -0.01"/>
-            <parent link="base_stabilized"/>
-            <child link="adis16350"/>
-        </joint>
-
-        <link name = "adis16350"/>
-
-        <joint name="stabilizer_to_adis16488" type="fixed">
-            <origin rpy = "0 0 0" xyz="0.09 0.0 0.625"/>
-            <parent link="base_stabilized"/>
-            <child link="adis16488"/>
-        </joint>
-
-        <link name = "adis16488"/>
 
         <link name="laser">
             <visual>
@@ -174,36 +159,6 @@
             <child link="camera"/>
             <origin rpy=" ${M_PI/2} 0 0" xyz="0 0.05 0.01"/>
             <axis xyz="0 0 1"/>
-        </joint>
-
-        <link name="kinect">
-            <visual>
-                <geometry>
-                    <box size=" .065 0.25 .075"/>
-                </geometry>
-                <material name="kinect"/>
-            </visual>
-            <inertial>
-                <mass value="1.5"/>
-                <inertia_zaklad/>
-
-            </inertial>
-        </link>
-
-        <joint name="kinect_to_veza" type="fixed">
-            <parent link="base_stabilized"/>
-            <child link="kinect"/>
-            <origin rpy=" 0 0.35 0" xyz="0.100 0 0.489"/>
-        </joint>
-
-        <link name="kinect_ir">
-
-        </link>
-
-        <joint name="kinect_ir_to_veza" type="fixed">
-            <parent link="kinect"/>
-            <child link="kinect_ir"/>
-            <origin rpy="1.57 0 1.57" xyz="0.0 -0.070 0"/>
         </joint>
 
         <link name="wheel_frame_l">
@@ -385,23 +340,6 @@
         </joint>
 
         <link name="${end_point}"/>
-
-        <joint name="base_to_gps" type="fixed">
-            <parent link="base_link"/>
-            <child link="gps"/>
-            <origin rpy="0 0 0" xyz="0 0 2"/>
-        </joint>
-
-        <link name="gps"/>
-
-        <joint name="gps_to_vo" type="fixed">
-            <parent link="gps"/>
-            <child link="vo"/>
-            <origin rpy="0 0 0" xyz="0 0 0"/>
-        </joint>
-
-        <link name="vo"/>
-
 
         <transmission name="mrvk_left_transmission">
             <type>transmission_interface/SimpleTransmission</type>

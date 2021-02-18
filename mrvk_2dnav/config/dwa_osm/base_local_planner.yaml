@@ -1,6 +1,6 @@
 TrajectoryPlannerROS:
 #Robot Configuration Parameters
-  max_vel_x: 0.65
+  max_vel_x: 0.3
   #min_vel_x
   max_vel_theta: 1.0
   min_vel_theta: -1.0
@@ -9,18 +9,18 @@ TrajectoryPlannerROS:
   
   #acceleration limits
   acc_lim_theta: 1
-  acc_lim_x: 0.35
+  acc_lim_x: 1
 
   escape_vel: -0.1
   holonomic_robot: false
 
 #Goal Tolerance Parameters
-  yaw_goal_tolerance: 0.15      # default 0.05
-  xy_goal_tolerance: 1.0        #default 0.1
+  yaw_goal_tolerance: 3      # default 0.05
+  xy_goal_tolerance: 1.5        #default 0.1
   latch_xy_goal_tolerance: true           #default false If goal tollerance is latched, if the robot ever reach the goal xy location it will simply rotate in place, even if it ends up outside the goal tolerance while it is doing so
 
 #Forward Simulation Parameters
-  sim_time: 2.0 
+  sim_time: 2.5
 #Trajectory Scoring Parameters
   meter_scoring: true
 #Oscillation Prevention Parameters

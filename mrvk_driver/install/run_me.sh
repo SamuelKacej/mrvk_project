@@ -9,3 +9,8 @@ sudo cp 97-gps.rules /etc/udev/rules.d/97-gps.rules
 sudo cp 98-adis-devices.rules /etc/udev/rules.d/98-adis-devices.rules
 #create simbolic link (HOKUYO) to ttyUSB ports
 sudo cp 99-hokuyo.rules /etc/udev/rules.d/99-hokuyo.rules
+#add user to dailout
+sudo adduser `echo $USER` dialout
+#add mrvk_init to /usr/bin
+sudo cp ~/catkin_ws/deve/lib/mrvk_driver/mrvk_init /usr/bin
+sudo chmod +x /usr/bin/mrvk_init

@@ -1,8 +1,21 @@
 <?xml version="1.0"?>
 <launch>
-  <include file="$(find mrvk_driver)/launch/mapping.launch" >
-    <arg name="vo_used" default="true"/>
+
+  <arg name="map_config" default="$(find mrvk_2dnav)/config/dwa_osm/fei_map_config.yaml"/>
+
+  <include file="$(find mrvk_sensors)/launch/robot.launch" >
+    <!--<arg name="vo_used" default="true"/>-->
+    <arg name="use_gmapping" value="false"/>
+    <arg name="use_gps" default="true"/>
+    <arg name="use_camera" default="true"/>
+    <arg name="filter_config_path" value="$(find mrvk_laser_filters)/config/laser_filters_osm.yaml"/>
   </include>
-  <include file="$(find mrvk_2dnav)/launch/move_base_dwa_osm.launch" />
-  <include file="$(find mrvk_driver)/launch/gps.launch" />
+
+   <include file="$(find gps_compass_correction)/launch/gps_compass_correction.launch">
+    <arg name="osm_map_config" value="$(arg map_config)"/>
+  </include>
+
+  <include file="$(find mrvk_2dnav)/launch/move_base_dwa_osm.launch" >
+    <arg name="osm_map_config" value="$(arg map_config)"/>
+  </include>
 </launch>

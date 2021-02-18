@@ -1,7 +1,7 @@
 sidewalk_params:
   my_param: 1000
   spin_freq: 6
-  image_topic: /kinect2/qhd/image_color
+  image_topic: /usb_cam/image_raw #/kinect2/qhd/image_color#/usb_cam/image_raw#
   depth_image_topic: /kinect2/qhd/image_depth_rect
 
   edge_side_offset: 50
@@ -9,6 +9,9 @@ sidewalk_params:
   edge_start_offset: 35
   edge_side_offset_promile: 10
   detect_percent_of_image: 60
+
+  undistort_image: true
+  compute_edge_cloud: true
 
   display:
     orig: true
@@ -31,6 +34,10 @@ sidewalk_params:
 
   edge_points_distribution:
     edge_points_dist: 20
+
+camera_capture_params:
+  frame_rate: 10
+  publish_topic_name: camera_image
 
   #define EDGE_MARKER_VERTICAL_POINT_DIST 50
 

@@ -19,7 +19,7 @@ status_period: 5
 
 mcb_5V: True
 mcb_12V: True
-wifi: False
+fan: Trues
 video_transmitter: True #spustenie kinectu
 laser_scanner: True
 gps: False
@@ -42,4 +42,4 @@ camera_pkk: 10
 camera_iko: 5
 camera_ikk: 80
 
-comunication_rate: 30 # 30 je asi max (default 30)
+comunication_rate: 50 # 30 je asi max (default 30)

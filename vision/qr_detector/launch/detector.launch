@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<launch>
+    <node pkg="nodelet" type="nodelet" name="qr_detector"
+          args="standalone qr_detector/qr_detector_nodelet">
+        <remap from="image" to="usb_cam/image_raw"/>
+        <remap from="qr_codes" to="qr_detector/qr_codes"/>
+    </node>    
+</launch>
+

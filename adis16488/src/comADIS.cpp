@@ -202,7 +202,7 @@ int main(int argc, char **argv)
     imu.angular_velocity_covariance[5]=0;
     imu.angular_velocity_covariance[6]=0;
     imu.angular_velocity_covariance[7]=0;
-    imu.angular_velocity_covariance[8]=0.0005;
+    imu.angular_velocity_covariance[8]=0.0001;//0.0005;
 
     imu.orientation_covariance[0]=0.00001;
     imu.orientation_covariance[1]=0;
@@ -212,7 +212,7 @@ int main(int argc, char **argv)
     imu.orientation_covariance[5]=0;
     imu.orientation_covariance[6]=0;
     imu.orientation_covariance[7]=0;
-    imu.orientation_covariance[8]=0.0005;
+    imu.orientation_covariance[8]=0.0001; //0.0005;
 
 
     if (!openFailed)
@@ -327,24 +327,26 @@ int main(int argc, char **argv)
                 imu.header.stamp = ros::Time::now();
                 imu.angular_velocity.x = 0;
                 imu.angular_velocity.y = 0;
-                imu.angular_velocity.z = -(double)readPacketADIS.data[VEL_Z]*DEG2RAD;
-                imu.linear_acceleration.x = -(double)readPacketADIS.data[ACCEL_X]*GGG;
-                imu.linear_acceleration.y = -(double)readPacketADIS.data[ACCEL_Y]*GGG;
-                imu.linear_acceleration.z = -(double)readPacketADIS.data[ACCEL_Z]*GGG;
-                imu.orientation = tf::createQuaternionMsgFromRollPitchYaw(0,0,-(double)readPacketADIS.data[VEL_Z_DEL]*DEG2RAD);
+                imu.angular_velocity.z = (double)readPacketADIS.data[VEL_Z]*DEG2RAD;
+                imu.linear_acceleration.x = (double)readPacketADIS.data[ACCEL_X]*GGG;
+                imu.linear_acceleration.y = (double)readPacketADIS.data[ACCEL_Y]*GGG;
+                imu.linear_acceleration.z = (double)readPacketADIS.data[ACCEL_Z]*GGG;
+		//double gyro_int_z = (double)readPacketADIS.data[VEL_Z_DEL]*DEG2RAD;
+		//ROS_WARN("rot z = %f", gyro_int_z);
+                imu.orientation = tf::createQuaternionMsgFromRollPitchYaw(0,0,(double)readPacketADIS.data[VEL_Z_DEL]*DEG2RAD);
 
             }
             else{
                 imu.header.frame_id = imu_frame;
                 imu.header.seq = dataCounter;
                 imu.header.stamp = ros::Time::now();
-                imu.angular_velocity.x -(double)readPacketADIS.data[VEL_X]*DEG2RAD;
-                imu.angular_velocity.y = -(double)readPacketADIS.data[VEL_Y]*DEG2RAD;
-                imu.angular_velocity.z = -(double)readPacketADIS.data[VEL_Z]*DEG2RAD;
-                imu.linear_acceleration.x = -(double)readPacketADIS.data[ACCEL_X]*GGG;
-                imu.linear_acceleration.y = -(double)readPacketADIS.data[ACCEL_Y]*GGG;
-                imu.linear_acceleration.z = -(double)readPacketADIS.data[ACCEL_Z]*GGG;
-                imu.orientation = tf::createQuaternionMsgFromRollPitchYaw(-(double)readPacketADIS.data[VEL_X_DEL]*DEG2RAD,-(double)readPacketADIS.data[VEL_Y_DEL]*DEG2RAD,-(double)readPacketADIS.data[VEL_Z_DEL]*DEG2RAD);
+                imu.angular_velocity.x = (double)readPacketADIS.data[VEL_X]*DEG2RAD;
+                imu.angular_velocity.y = (double)readPacketADIS.data[VEL_Y]*DEG2RAD;
+                imu.angular_velocity.z = (double)readPacketADIS.data[VEL_Z]*DEG2RAD;
+                imu.linear_acceleration.x = (double)readPacketADIS.data[ACCEL_X]*GGG;
+                imu.linear_acceleration.y = (double)readPacketADIS.data[ACCEL_Y]*GGG;
+                imu.linear_acceleration.z = (double)readPacketADIS.data[ACCEL_Z]*GGG;
+                imu.orientation = tf::createQuaternionMsgFromRollPitchYaw((double)readPacketADIS.data[VEL_X_DEL]*DEG2RAD,(double)readPacketADIS.data[VEL_Y_DEL]*DEG2RAD,(double)readPacketADIS.data[VEL_Z_DEL]*DEG2RAD);
             }
 
             //display read data

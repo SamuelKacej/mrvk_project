@@ -16,5 +16,5 @@ namespace vfh_local_planner {
 
     bool VFHPlusPlannerROS::setPlan(const std::vector<geometry_msgs::PoseStamped>& plan){}
 
-    void VFHPlusPlannerROS::initialize(std::string name, tf::TransformListener* tf, costmap_2d::Costmap2DROS* costmap_ros){}
+    void VFHPlusPlannerROS::initialize(std::string name,  tf2_ros::Buffer* tf, costmap_2d::Costmap2DROS* costmap_ros){}
 }

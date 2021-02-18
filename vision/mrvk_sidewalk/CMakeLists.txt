@@ -15,6 +15,16 @@ find_package(catkin REQUIRED COMPONENTS
 		tf_conversions
 )
 find_package(PCL REQUIRED QUIET COMPONENTS common sample_consensus io segmentation filters)
+find_package(OpenCV 3 REQUIRED
+		COMPONENTS
+		opencv_core			#find by cv_bridge but for sure also here
+		videoio
+		video
+		highgui
+		opencv_imgproc		#find by cv_bridge but for sure also here
+		opencv_imgcodecs	#find by cv_bridge but for sure also here
+		calib3d
+		)
 
 catkin_package(
 		INCLUDE_DIRS include
@@ -28,6 +38,7 @@ include_directories(
 		include/mrvk_sidewalk
    		${catkin_INCLUDE_DIRS}
 		${PCL_INCLUDE_DIRS}
+        ${OpenCV_INCLUDE_DIRS}
 )
 
 #set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DDEBUG")
@@ -45,12 +56,17 @@ set(LOCAL_INCLUDES 	src/recognize_sidewalk/recognize_sidewalk.cpp
 					src/cloud_processing.cpp
 					src/recognize_sidewalk/SidewalkEdge.cpp
 					src/recognize_sidewalk/SidewalkEdge.h
+					src/recognize_sidewalk/polyfit2.cpp
+					src/recognize_sidewalk/polyfit2.h
 					)
 
 add_executable(recognize_sidewalk_video src/recognize_sidewalk_video.cpp ${LOCAL_INCLUDES})
-target_link_libraries(recognize_sidewalk_video ${PCL_LIBRARIES} ${catkin_LIBRARIES})
+target_link_libraries(recognize_sidewalk_video ${PCL_LIBRARIES} ${catkin_LIBRARIES} ${OpenCV_LIBRARIES})
 #add_dependencies(recognize_sidewalk recognize_sidewalk_generate_messages_cpp)
 
 add_executable(recognize_sidewalk_kinect src/recognize_sidewalk_kinect.cpp ${LOCAL_INCLUDES})
-target_link_libraries(recognize_sidewalk_kinect ${PCL_LIBRARIES} ${catkin_LIBRARIES})
+target_link_libraries(recognize_sidewalk_kinect ${PCL_LIBRARIES} ${catkin_LIBRARIES} ${OpenCV_LIBRARIES})
 #add_dependencies(recognize_sidewalk_kinect recognize_sidewalk_kinect_generate_messages_cpp)
+
+add_executable(camera_calibration src/camera_calibration.cpp ${LOCAL_INCLUDES} )
+target_link_libraries(camera_calibration ${catkin_LIBRARIES} ${OpenCV_LIBS})
